@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gokhconnect/familles/home_page_famille.dart';
+import 'package:gokhconnect/screens/home_page1.dart';
+ // Ajoute ton fichier de page Localité ici
+import 'package:gokhconnect/widgets/custom_scaffold1.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -12,48 +15,101 @@ class HomePage extends StatelessWidget {
         primarySwatch: Colors.lightBlue,
         scaffoldBackgroundColor: Colors.white,
       ),
-      home: Scaffold(
-        backgroundColor: const Color.fromARGB(0, 255, 255, 255),
+      home: CustomScaffold1(
         appBar: AppBar(
           backgroundColor: Colors.lightBlue,
           title: const Text(
             "GokhConnect",
-            textAlign: TextAlign.start,
+            textAlign: TextAlign.end,
             style: TextStyle(color: Colors.black, fontSize: 25),
           ),
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
+          leading: TextButton(
             onPressed: () {
-              Navigator.pop(context);
+              // Logique de déconnexion
+              Navigator.pop(context); // Retour à l'écran précédent
             },
+            child: const Text(
+              "LogOut",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+              ),
+            ),
           ),
+          elevation: 0,
         ),
-        body: Center(
+        child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset('assets/images/ANSD.png'),
+              // Ajouter les deux boutons avant le texte de bienvenue
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.all(15),
+                      backgroundColor: Colors.blue,
+                    ),
+                    onPressed: () {
+                      // Navigation vers la page Localité
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const HomePage1()),
+                      );
+                    },
+                    label: const Text(
+                      'Le Senegal en Bref',
+                      style: TextStyle(fontSize: 16, color: Colors.white),
+                    ),
+                    icon: const Icon(Icons.graphic_eq_sharp),
+                  ),
+                  const SizedBox(width: 10),
+                  ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.all(15),
+                      backgroundColor: Colors.white70,
+                    ),
+                    onPressed: () {
+                      // Navigation vers la page Famille
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const HomePageFamille()),
+                      );
+                    },
+                    label: const Text(
+                      'Famille',
+                      style: TextStyle(fontSize: 16, color: Colors.black),
+                    ),
+                    icon: const Icon(Icons.family_restroom),
+                  ),
+                ],
+              ),
+              const Padding(padding: EdgeInsets.only(top: 20)),
+              // Texte de bienvenue
               const Text(
-                'Bienvenue sur GokhConnect',
+                'GOKHCONNECT',
                 style: TextStyle(
-                  fontSize: 24,
+                  fontSize: 27,
+                  color: Colors.white,
                   fontFamily: 'Poppins',
                 ),
               ),
               const Text(
                 'Connexion des Communautés',
                 style: TextStyle(
-                  fontSize: 12,
+                  fontSize: 18,
+                  color: Colors.white,
                 ),
               ),
               const Text(
-                'Vous pouvez commencer a ajouter une famille en cliquant sur le bouton Famille',
+                'Vous pouvez commencer à ajouter une famille en cliquant sur le bouton Famille',
                 style: TextStyle(
-                  fontSize: 9,
+                  fontSize: 10,
+                  color: Colors.white,
                 ),
               ),
               const Padding(padding: EdgeInsets.only(top: 20)),
-              //bouton Famille
               ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.all(15),
@@ -63,96 +119,19 @@ class HomePage extends StatelessWidget {
                   Navigator.push(
                     context,
                     PageRouteBuilder(
-                      pageBuilder: (_, __, ___) => const HomePageFamille()
+                      pageBuilder: (_, __, ___) => const HomePageFamille(),
                     ),
                   );
-                }, 
-                label:const Text(
+                },
+                label: const Text(
                   'Ajout de famille',
                   style: TextStyle(
                     fontSize: 20,
-                    color: Colors.black
+                    color: Colors.black,
                   ),
                 ),
                 icon: const Icon(Icons.add),
               )
-              // Liste Boutons
-              // Builder(
-              //   builder: (BuildContext context) {
-              //     return Row(
-              //       mainAxisAlignment: MainAxisAlignment.center,
-              //       children: [
-              //         ElevatedButton.icon(
-              //           style: ElevatedButton.styleFrom(
-              //             padding: const EdgeInsets.all(15),
-              //             backgroundColor: Colors.blue,
-              //           ),
-              //           onPressed: () {
-              //             print("Bouton Localité cliqué");
-              //             Navigator.push(
-              //               context,
-              //               MaterialPageRoute(builder: (context) => const HomePageLocalite()),
-              //             );
-              //           },
-              //           label: const Text(
-              //             'Localité',
-              //             style: TextStyle(fontSize: 16, color: Colors.white),
-              //           ),
-              //           icon: const Icon(Icons.add),
-              //         ),
-              //         const SizedBox(width: 10),
-              //         ElevatedButton.icon(
-              //           style: ElevatedButton.styleFrom( 
-              //             padding: const EdgeInsets.all(15), 
-              //             backgroundColor: Colors.orange, ),
-              //           onPressed: () {
-              //             // Action pour le deuxième bouton
-              //           },
-              //           label: const Text(
-              //             'Famille',
-              //             style: TextStyle(fontSize: 16, color: Colors.white),
-              //           ),
-              //           // icon: const Icon(Icons.edit),
-              //           icon: const Icon(Icons.add),
-              //         ),
-              //         const SizedBox(width: 10),
-              //         ElevatedButton.icon(
-              //           style: ElevatedButton.styleFrom( 
-              //             padding: const EdgeInsets.all(15), 
-              //             backgroundColor: Colors.green, 
-              //           ),
-              //           onPressed: () {
-              //             // Action pour le troisième bouton
-              //           },
-              //           label: const Text(
-              //             'Personne',
-              //             style: TextStyle(fontSize: 16, color: Colors.white),
-              //           ),
-              //           // icon: const Icon(Icons.check),
-              //           icon: const Icon(Icons.add),
-              //         ),
-
-              //         const SizedBox(width: 10),
-              //         ElevatedButton.icon(
-              //           style: ElevatedButton.styleFrom( 
-              //             padding: const EdgeInsets.all(15), 
-              //             backgroundColor: Colors.green, 
-              //           ),
-              //           onPressed: () {
-              //             // Action pour le troisième bouton
-              //           },
-              //           label: const Text(
-              //             'Evenement',
-              //             style: TextStyle(fontSize: 16, color: Colors.white),
-              //           ),
-              //           // icon: const Icon(Icons.check),
-              //           icon: const Icon(Icons.add),
-              //         ),
-              //       ],
-              //     );
-              //   },
-              // ),
-            
             ],
           ),
         ),
