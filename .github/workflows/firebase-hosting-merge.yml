@@ -11,6 +11,7 @@ on:
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
@@ -24,7 +25,7 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.3.10' # Spécifiez la version de Flutter que vous utilisez
+          flutter-version: '3.3.10'
 
       - name: Install dependencies
         run: flutter pub get
@@ -32,7 +33,8 @@ jobs:
       - name: Build Flutter web
         run: flutter build web
 
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_TESTAUTH_FF0B0 }}
