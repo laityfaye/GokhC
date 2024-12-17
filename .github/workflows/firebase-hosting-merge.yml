@@ -10,26 +10,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Récupération du code source
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2. Installation de Flutter
+      - name: Cleanup Flutter cache
+        run: rm -rf $HOME/.flutter
+
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.5.0' # Spécifiez la version exacte
-          channel: stable          # Canal stable
+          channel: stable
 
-      # 3. Vérification de l'installation de Flutter
-      - name: Flutter version
+      - name: Verify Flutter Installation
         run: flutter --version
 
-      # 4. Construction de l'application Flutter pour le web
       - name: Build Flutter Web
         run: flutter build web
 
-      # 5. Déploiement vers Firebase Hosting
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
