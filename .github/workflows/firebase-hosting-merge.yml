@@ -1,4 +1,4 @@
-name: Flutter CI
+name: Flutter CI/CD
 
 on:
   push:
@@ -13,21 +13,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Vérifiez le dépôt
+      # 1. Récupération du code source
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Installez Flutter
+      # 2. Installation de Flutter (précisez la version et le canal)
       - name: Install Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.5.0'  # Spécifiez une version Flutter valide
-          channel: stable
+          flutter-version: '3.5.0'  # Spécifiez la version exacte
+          channel: stable           # Canal stable
 
-      # Obtenez les dépendances
+      # 3. Vérification de la version Flutter installée
+      - name: Flutter Version
+        run: flutter --version
+
+      # 4. Installation des dépendances
       - name: Flutter Pub Get
         run: flutter pub get
 
-      # Construisez et testez
-      - name: Build and Test
+      # 5. Exécutez vos tests ou commandes
+      - name: Run Flutter Tests
         run: flutter test
